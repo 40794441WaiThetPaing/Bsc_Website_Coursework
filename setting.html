@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Slide Puzzle Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="setting.js" defer></script>
+</head>
+<div id="game-title"> 🧩 Sliding Puzzle Game</div>
+    <button id="backBtn" onclick="window.location='index.html'">⬅</button>
+<video autoplay muted loop id="bgVideo">
+    <source src="videos/background4.mp4" type="video/mp4">
+</video>
+<div id="videoOverlay"></div>
+<body>
+    <button id="backBtn" onclick="window.location='index.html'" aria-label="Go back">⬅</button>
+
+    <div class="page-container">
+        <div id="settingsPage" class="card">
+            <h1>⚙️ Settings </h1>
+
+            <div class="settings-list">
+                <div class="settings-row">
+                    <span>Saved Theme</span>
+                    <button class="manage" onclick="clearSavedTheme()">Manage</button>
+                </div>
+
+                <div class="settings-row">
+                    <span>Saved Best Scores</span>
+                    <button class="danger" onclick="clearBestScores()">Clear</button>
+                </div>
+
+                <div class="settings-row">
+                    <span>Saved Progress History</span>
+                    <button class="danger" onclick="clearProgressHistory()">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

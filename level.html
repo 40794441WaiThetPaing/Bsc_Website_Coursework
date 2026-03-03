@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Level</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-title"> 🧩 Sliding Puzzle Game</div>
+    <button id="backBtn" onclick="window.location='index.html'">⬅</button>
+    <video autoplay muted loop id="bgVideo">
+        <source src="videos/background4.mp4" type="video/mp4">
+    </video>
+
+    <div id="level-selection" class="card">
+        <h1>Choose Level</h1>
+        <h3 id="selected-theme-name"></h3>
+        <img id="level-preview" src="" alt="Level Preview">
+        
+        <div class="levels" id="link-container">
+            </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const theme = params.get('theme') || 'shinchan';
+        document.getElementById("selected-theme-name").innerText = theme.toUpperCase();
+        
+        document.getElementById("level-preview").src = `images/previews/${theme}.jpg`;
+
+        const container = document.getElementById('link-container');
+        const difficulties = [
+            {n: "Easy", s: 3}, {n: "Medium", s: 4}, 
+            {n: "Hard", s: 5}, {n: "Expert", s: 6}
+        ];
+
+        difficulties.forEach(lvl => {
+            const a = document.createElement('a');
+            a.className = "level-card";
+            a.href = `gameboard.html?theme=${theme}&size=${lvl.s}`;
+            a.innerText = `${lvl.n} (${lvl.s}x${lvl.s})`;
+            container.appendChild(a);
+        });
+    </script>
+</body>
+</html>
