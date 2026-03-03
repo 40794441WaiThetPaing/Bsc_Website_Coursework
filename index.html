@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Slide Puzzle Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <button id="backBtn" onclick="goBack()" aria-label="Go back">⬅</button>
+    <div id="game-title"> 🧩 Sliding Puzzle Game</div>
+
+    <!-- VIDEO BACKGROUND -->
+    <video autoplay muted loop id="bgVideo">
+        <source src="videos/background4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div id="videoOverlay"></div>
+
+    <!-- THEME SELECTION -->
+    <div id="theme-selection" class="card">
+        <h1> Choose a Theme</h1>
+        <button onclick="window.location='setting.html'">⚙️ Settings</button>
+        <button onclick="window.location='progress.html'">🏆 Records</button>
+        <button onclick="openHowToPlay()">❓ How to Play</button>
+        <div class="theme-grid">
+            <div class="theme-card" onclick="chooseTheme('shinchan', this)">
+                <img src="images/previews/shinchan.jpg"><span>Shinchan</span>
+            </div>
+            <div class="theme-card" onclick="chooseTheme('spongebob', this)">
+                <img src="images/previews/spongebob.jpg"><span>SpongeBob</span>
+            </div>
+            <div class="theme-card" onclick="chooseTheme('familyguy', this)">
+                <img src="images/previews/familyguy.jpg"><span>Family Guy</span>
+            </div>
+            <div class="theme-card" onclick="chooseTheme('tomjerry', this)">
+                <img src="images/previews/tomjerry.jpg"><span>Tom & Jerry</span>
+            </div>
+            <div class="theme-card" onclick="chooseTheme('scoobydoo', this)">
+                <img src="images/previews/scoobydoo.jpg"><span>Scooby-Doo</span>
+            </div>
+            <div class="theme-card" onclick="chooseTheme('oggy', this)">
+                <img src="images/previews/oggy.jpg"><span>Oggy</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEVEL SELECTION -->
+    <div id="level-selection" class="card hidden">
+        <h1>Choose Level</h1>
+        <h3 id="selected-theme-name"></h3>
+        <img id="level-preview" src="" alt="Level Preview">
+        <div class="levels">
+            <div class="level-card" onclick="selectLevel(3,3)">Easy (3×3)</div>
+            <div class="level-card" onclick="selectLevel(4,4)">Medium (4×4)</div>
+            <div class="level-card" onclick="selectLevel(5,5)">Hard (5×5)</div>
+            <div class="level-card" onclick="selectLevel(6,6)">Expert (6×6)</div>
+        </div>
+    </div>
+
+    <!-- GAME BOARD -->
+    <div id="game" class="card hidden">
+        <div class="game-area">
+            <div id="full-preview-container">
+                <div id="full-preview">
+                    <h4>Full Image</h4>
+                    <img id="fullImage" src="" alt="Full Puzzle" />
+                </div>
+                <div id="timer-turns">
+                    ⏱ Time: <span id="time">0</span>s
+                    🔁 Turns: <span id="turns">0</span>
+                </div>
+                <div id="left-controls">
+                    <button onclick="restartGame()">🔄 Restart</button>
+                    <button onclick="goHome()">🏠 Home</button>
+                    <button id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+                    <button onclick="forceWin()" style="background:#ffb703;">🧪 Force Win</button>
+                </div>
+            </div>
+            <div id="board"></div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="overlay" class="hidden">
+        <div id="resultScreen">
+            <h1>🧩 Sliding Puzzle Game</h1>
+            <h2 class="success">🎉 Puzzle Completed!</h2>
+
+            <div class="result-box">
+                <div class="result-row"><span>Time Taken:</span><span id="finalTime"></span></div>
+                <div class="result-row"><span>Total Moves:</span><span id="finalTurns"></span></div>
+                <div class="result-row"><span>Best Time:</span><span id="bestTime"></span></div>
+                <div class="result-row"><span>Least Moves:</span><span id="leastMoves"></span></div>
+            </div>
+
+            <div class="result-buttons">
+                <button class="home" onclick="goHome()"> ➡️Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAUSE POPUP -->
+    <div id="pauseOverlay" class="hidden">
+        <div id="pausePopup">
+            <h2>⏸️ Game Paused</h2>
+            <p>Take a break! Click Resume to continue solving the puzzle.</p>
+            <button onclick="togglePause()">▶️Resume</button>
+        </div>
+    </div>
+</body>
+</html>
