@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Choose Level</title>
     <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
 </head>
 <body>
     <div id="game-title"> 🧩 Sliding Puzzle Game</div>
@@ -22,6 +23,18 @@
     </div>
 
     <script>
+        function applyMode(mode){
+    if(mode === "light"){
+        document.body.classList.add("light");
+    } else {
+        document.body.classList.remove("light");
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const mode = localStorage.getItem("mode") || "dark";
+    applyMode(mode);
+});
         const params = new URLSearchParams(window.location.search);
         const theme = params.get('theme') || 'shinchan';
         document.getElementById("selected-theme-name").innerText = theme.toUpperCase();

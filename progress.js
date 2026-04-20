@@ -53,3 +53,15 @@ window.onload = function(){
 
     loadProgressByTheme();
 };
+function applyMode(mode){
+    if(mode === "light"){
+        document.body.classList.add("light");
+    } else {
+        document.body.classList.remove("light");
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const mode = localStorage.getItem("mode") || "dark";
+    applyMode(mode);
+});

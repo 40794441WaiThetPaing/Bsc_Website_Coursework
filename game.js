@@ -155,3 +155,15 @@ function nextLevel() {
     window.location.href = `gameboard.html?theme=${theme}&size=${nextSize}`;
 }
 
+function applyMode(mode){
+    if(mode === "light"){
+        document.body.classList.add("light");
+    } else {
+        document.body.classList.remove("light");
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const mode = localStorage.getItem("mode") || "dark";
+    applyMode(mode);
+});

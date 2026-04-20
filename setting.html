@@ -2,41 +2,64 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Slide Puzzle Settings</title>
+    <title>Settings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
     <script src="setting.js" defer></script>
+    <script src="theme.js" defer></script>
 </head>
-<div id="game-title"> 🧩 Sliding Puzzle Game</div>
-    <button id="backBtn" onclick="window.location='index.html'">⬅</button>
+
+<body>
+
+<!-- Background -->
 <video autoplay muted loop id="bgVideo">
     <source src="videos/background4.mp4" type="video/mp4">
 </video>
 <div id="videoOverlay"></div>
-<body>
-    <button id="backBtn" onclick="window.location='main_menu.html'" aria-label="Go back">⬅</button>
 
-    <div class="page-container">
-        <div id="settingsPage" class="card">
-            <h1>⚙️ Settings </h1>
+<!-- Header -->
+<div id="game-title">Sliding Puzzle Settings</div>
+<button id="backBtn" onclick="window.location='main_menu.html'">←</button>
 
-            <div class="settings-list">
-                <div class="settings-row">
-                    <span>Saved Theme</span>
-                    <button class="manage" onclick="clearSavedTheme()">Manage</button>
-                </div>
+<!-- Settings container -->
+<div class="page-container">
 
-                <div class="settings-row">
-                    <span>Saved Best Scores</span>
-                    <button class="danger" onclick="clearBestScores()">Clear</button>
-                </div>
+    <div class="card settings-card">
 
-                <div class="settings-row">
-                    <span>Saved Progress History</span>
-                    <button class="danger" onclick="clearProgressHistory()">Clear</button>
-                </div>
-            </div>
+        <h2>Settings</h2>
+
+        <!-- Theme -->
+        <div class="setting-item">
+            <span>Theme</span>
+            <select id="themeSelect" onchange="setTheme(this.value)">
+                <option value="shinchan">Shinchan</option>
+                <option value="spongebob">SpongeBob</option>
+                <option value="familyguy">Family Guy</option>
+                <option value="tomjerry">Tom & Jerry</option>
+                <option value="scoobydoo">Scooby-Doo</option>
+                <option value="oggy">Oggy</option>
+            </select>
         </div>
+
+        <!-- Actions -->
+        <div class="setting-item">
+            <span>Clear Theme Progress</span>
+            <button class="btn danger" onclick="clearProgressHistory()">Clear</button>
+        </div>
+        <div class="setting-item">
+    <span>Appearance</span>
+    <select id="modeSelect" onchange="setMode(this.value)">
+        <option value="dark">Dark Mode</option>
+        <option value="light">Light Mode</option>
+    </select>
+</div>
     </div>
+
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
 </body>
 </html>
