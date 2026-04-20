@@ -1,18 +1,27 @@
-function openRecord(){
-    document.getElementById("theme-selection").classList.add("hidden");
-    document.getElementById("progressPage").classList.remove("hidden");
+// ✅ SAVE BEST SCORE
+function saveProgress(theme, size, time, moves){
+    let key = `${theme}_${size}x${size}`;
 
-    document.getElementById("progressTheme").value = selectedTheme || "shinchan";
-    loadProgressByTheme();
+    let bestTime = localStorage.getItem(key + "_time");
+    let bestMoves = localStorage.getItem(key + "_moves");
+
+    // Save BEST TIME
+    if(!bestTime || time < parseInt(bestTime)){
+        localStorage.setItem(key + "_time", time);
+    }
+
+    // Save LEAST MOVES
+    if(!bestMoves || moves < parseInt(bestMoves)){
+        localStorage.setItem(key + "_moves", moves);
+    }
 }
 
-function closeRecord(){
-    document.getElementById("progressPage").classList.add("hidden");
-    document.getElementById("theme-selection").classList.remove("hidden");
-}
-
+// ✅ LOAD RECORDS
 function loadProgressByTheme(){
     const theme = document.getElementById("progressTheme").value;
+
+    // remember last theme
+    localStorage.setItem("lastTheme", theme);
 
     const levels = [
         { r:3, t:"eTime", m:"eMoves" },
@@ -29,10 +38,18 @@ function loadProgressByTheme(){
         let moves = localStorage.getItem(key + "_moves");
 
         document.getElementById(lvl.t).innerText = time ? time + "s" : "---";
-        document.getElementById(lvl.m).innerText = moves ?? "---";
+        document.getElementById(lvl.m).innerText = moves ? moves : "---";
 
         if(time) completed++;
     });
 
     document.getElementById("levelsDone").innerText = completed + " / 4";
 }
+
+// ✅ AUTO LOAD ON PAGE OPEN
+window.onload = function(){
+    let savedTheme = localStorage.getItem("lastTheme") || "shinchan";
+    document.getElementById("progressTheme").value = savedTheme;
+
+    loadProgressByTheme();
+};

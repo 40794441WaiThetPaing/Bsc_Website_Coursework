@@ -5,8 +5,10 @@
     <title>Slide Puzzle - Themes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
+     <button id="backBtn" onclick="window.location='main_menu.html'">⬅</button>
     <div id="game-title"> 🧩 Sliding Puzzle Game</div>
     <video autoplay muted loop id="bgVideo">
         <source src="videos/background4.mp4" type="video/mp4">
@@ -15,12 +17,6 @@
 
     <div id="theme-selection" class="card">
         <h1> Choose a Theme</h1>
-        <div class="top-nav">
-            <button onclick="window.location='setting.html'">⚙️ Settings</button>
-            <button onclick="window.location='progress.html'">🏆 Records</button>
-            <button onclick="alert('Drag tiles to the empty slot to solve!')">❓ How to Play</button>
-        </div>
-
         <div class="theme-grid">
             <a href="level.html?theme=shinchan" class="theme-card">
                 <img src="images/previews/shinchan.jpg"><span>Shinchan</span>

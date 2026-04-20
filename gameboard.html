@@ -8,7 +8,7 @@
 </head>
 <body>
    <div id="game-title"> 🧩 Sliding Puzzle Game</div>
-    <button id="backBtn" onclick="window.location='index.html'">⬅</button>
+    <button id="backBtn" onclick="window.location='level.html'">⬅</button>
     <video autoplay muted loop id="bgVideo">
         <source src="videos/background4.mp4" type="video/mp4">
     </video>
@@ -28,31 +28,54 @@
                     <button onclick="restartGame()">🔄 Restart</button>
                     <button onclick="window.location='index.html'">🏠 Home</button>
                     <button id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+                    <button onclick="forceWin()" style="background:#ffb703;">
+    🧪 Force Win
+</button>
                 </div>
+
             </div>
             <div id="board"></div>
         </div>
     </div>
-    <div id="pauseOverlay" class="hidden">
+   <div id="pauseOverlay" class="hidden">
     <div id="pausePopup">
         <h2>⏸️ Game Paused</h2>
-        <p>Take a break! Click Resume to continue.</p>
-        <button onclick="togglePause()">▶️ Resume</button>
+        <p>Take a break! Click Resume to continue solving the puzzle.</p>
+        <button onclick="togglePause()">Resume</button>
     </div>
 </div>
 
-<div id="overlay" class="hidden">
+<<div id="overlay" class="hidden">
     <div id="resultScreen">
-        <h1>🧩 Puzzle Completed!</h1>
-        <h2 class="success">🎉 Congratulations!</h2>
+        <h1>🧩 Sliding Puzzle Game</h1>
+        <h2 class="success">🎉 Puzzle Completed!</h2>
+
         <div class="result-box">
-            <div class="result-row"><span>Time:</span><span id="finalTime"></span></div>
-            <div class="result-row"><span>Moves:</span><span id="finalTurns"></span></div>
-            <div class="result-row"><span>Best Time:</span><span id="bestTime"></span></div>
-            <div class="result-row"><span>Best Moves:</span><span id="leastMoves"></span></div>
+            <div class="result-row">
+                <span>Time Taken:</span>
+                <span id="finalTime"></span>
+            </div>
+            <div class="result-row">
+                <span>Total Moves:</span>
+                <span id="finalTurns"></span>
+            </div>
+            <div class="result-row">
+                <span>Best Time:</span>
+                <span id="bestTime"></span>
+            </div>
+            <div class="result-row">
+                <span>Least Moves:</span>
+                <span id="leastMoves"></span>
+            </div>
         </div>
-        <button class="home" onclick="window.location='index.html'">➡️ Continue</button>
+
+        <div class="result-buttons">
+            <button class="replay" onclick="restartGame()">↻ Replay Level</button>
+            <button class="next" onclick="nextLevel()">⏭ Next Level</button>
+            <button class="home" onclick="goHome()"> 🏠Back to Home</button>
+        </div>
     </div>
+</div>
 </div>
 
     

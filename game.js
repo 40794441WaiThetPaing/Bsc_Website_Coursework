@@ -71,6 +71,40 @@ function togglePause() {
     }
 }
 
+function forceWin() {
+    clearInterval(interval);
+
+    // Show current stats
+    document.getElementById("finalTime").innerText = timer + "s";
+    document.getElementById("finalTurns").innerText = turns;
+
+    // Create a proper key using existing variables
+    let key = `${theme}_${size}x${size}`;
+
+    // Get saved best values
+    let bestTime = localStorage.getItem(key + "_time");
+    let leastMoves = localStorage.getItem(key + "_moves");
+
+    // If no saved values, use current
+    if (!bestTime || timer < bestTime) {
+        bestTime = timer;
+        localStorage.setItem(key + "_time", timer);
+    }
+
+    if (!leastMoves || turns < leastMoves) {
+        leastMoves = turns;
+        localStorage.setItem(key + "_moves", turns);
+    }
+
+    // Display best values
+    document.getElementById("bestTime").innerText = bestTime + "s";
+    document.getElementById("leastMoves").innerText = leastMoves;
+
+    // SHOW overlay properly
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("hidden");
+    setTimeout(() => overlay.classList.add("show"), 10);
+}
 
 function restartGame() {
     document.getElementById("overlay").classList.remove("show");
@@ -102,3 +136,22 @@ function shuffle(a) {
         [a[i], a[j]] = [a[j], a[i]];
     }
 }
+
+function goHome() {
+    window.location.href = "index.html";
+}
+
+function nextLevel() {
+    // increase puzzle size
+    let nextSize = size + 1;
+
+    // max level = 6 (based on your images)
+    if (nextSize > 6) {
+        goHome();
+        return;
+    }
+
+    // keep same theme, go to next level
+    window.location.href = `gameboard.html?theme=${theme}&size=${nextSize}`;
+}
+

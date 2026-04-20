@@ -4,47 +4,56 @@
     <meta charset="UTF-8">
     <title>Slide Puzzle Records</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
 
+    <!-- ✅ CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
+<body>
+
+<!-- ✅ Background Video -->
 <video autoplay muted loop id="bgVideo">
     <source src="videos/background4.mp4" type="video/mp4">
 </video>
+
 <div id="videoOverlay"></div>
-<body>
-    <div id="game-title"> 🧩 Sliding Puzzle Game</div>
-    <button id="backBtn" onclick="window.location='index.html'">⬅</button>
 
-    <div class="page-container">
-        <div id="progressPage" class="card">
-            <h1>🏆 Records</h1>
+<div id="game-title"> 🧩 Sliding Puzzle Game</div>
+<button id="backBtn" onclick="window.location='main_menu.html'">⬅</button>
 
-            <select id="progressTheme" onchange="loadProgressByTheme()">
-                <option value="shinchan">Shinchan</option>
-                <option value="spongebob">SpongeBob</option>
-                <option value="familyguy">Family Guy</option>
-                <option value="tomjerry">Tom & Jerry</option>
-                <option value="scoobydoo">Scooby-Doo</option>
-                <option value="oggy">Oggy</option>
-            </select>
+<div class="page-container">
+    <!-- ❌ removed 'hidden' so it shows immediately -->
+    <div id="progressPage" class="card">
+        <h1>🏆 Records</h1>
 
-            <div class="progress-list">
-                <div class="progress-row">Easy (3×3) – Best Time <span id="eTime">---</span></div>
-                <div class="progress-row">Easy (3×3) – Least Moves <span id="eMoves">---</span></div>
+        <select id="progressTheme" onchange="loadProgressByTheme()">
+            <option value="shinchan">Shinchan</option>
+            <option value="spongebob">SpongeBob</option>
+            <option value="familyguy">Family Guy</option>
+            <option value="tomjerry">Tom & Jerry</option>
+            <option value="scoobydoo">Scooby-Doo</option>
+            <option value="oggy">Oggy</option>
+        </select>
 
-                <div class="progress-row">Medium (4×4) – Best Time <span id="mTime">---</span></div>
-                <div class="progress-row">Medium (4×4) – Least Moves <span id="mMoves">---</span></div>
+        <div class="progress-list">
+            <div class="progress-row">Easy (3×3) – Best Time <span id="eTime">---</span></div>
+            <div class="progress-row">Easy (3×3) – Least Moves <span id="eMoves">---</span></div>
 
-                <div class="progress-row">Hard (5×5) – Best Time <span id="hTime">---</span></div>
-                <div class="progress-row">Hard (5×5) – Least Moves <span id="hMoves">---</span></div>
+            <div class="progress-row">Medium (4×4) – Best Time <span id="mTime">---</span></div>
+            <div class="progress-row">Medium (4×4) – Least Moves <span id="mMoves">---</span></div>
 
-                <div class="progress-row">Expert (6×6) – Best Time <span id="xTime">---</span></div>
-                <div class="progress-row">Expert (6×6) – Least Moves <span id="xMoves">---</span></div>
+            <div class="progress-row">Hard (5×5) – Best Time <span id="hTime">---</span></div>
+            <div class="progress-row">Hard (5×5) – Least Moves <span id="hMoves">---</span></div>
 
-                <hr>
-                <div class="progress-row"><b>Levels Completed</b> <span id="levelsDone">0 / 4</span></div>
-            </div>
+            <div class="progress-row">Expert (6×6) – Best Time <span id="xTime">---</span></div>
+            <div class="progress-row">Expert (6×6) – Least Moves <span id="xMoves">---</span></div>
+
+            <hr>
+            <div class="progress-row"><b>Levels Completed</b> <span id="levelsDone">0 / 4</span></div>
         </div>
     </div>
+</div>
+
+<script src="progress.js"></script>
 </body>
 </html>

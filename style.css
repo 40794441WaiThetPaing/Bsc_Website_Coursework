@@ -1,3 +1,6 @@
+/* ---------------- VIDEO BACKGROUND ---------------- */
+
+/* VIDEO BACKGROUND */
 #bgVideo {
     position: fixed;
     top: 0;
@@ -18,7 +21,49 @@
     backdrop-filter: blur(6px);
     z-index: -1;
 }
+.menu-card button {
+    margin: 10px 0;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    font-family: inherit;
+    transition: 0.3s;
+    cursor: pointer;
+}
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/* For Main Menu */
+.menu-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    color: #333;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.menu-card button {
+    margin: 10px 0;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    font-family: inherit;
+    transition: 0.3s;
+    cursor: pointer;
+    background: #ffb6c1;
+    color: #fff;
+}
+
+.menu-card button:hover {
+    transform: scale(1.05);
+    background: #ff99b3;
+}
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
@@ -42,7 +87,70 @@ body {
     pointer-events: none; /* so it doesn’t block clicks */
 }
 
+/* ============ PROGRESS PAGE ============ */
 
+#progressTheme {
+    padding: 10px;
+    font-size: 16px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+}
+
+.progress-list {
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 14px;
+    margin: 20px 0;
+}
+
+.progress-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+.progress-row:last-child {
+    border-bottom: none;
+}
+
+
+/* ============ SETTINGS / STORAGE ============ */
+
+.settings-list {
+    margin: 30px 0;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+.settings-row:last-child {
+    border-bottom: none;
+}
+
+.settings-row button {
+    min-width: 90px;
+}
+
+button.manage {
+    background: #cfe2ff;
+}
+
+button.danger {
+    background: #f8d7da;
+}
+
+
+/* ---------------- CARDS ---------------- */
 .card {
     background: rgba(255,255,255,0.7);
     backdrop-filter: blur(10px);
@@ -55,6 +163,7 @@ body {
     margin-top: 80px
 }
 
+/* ---------------- THEME GRID ---------------- */
 .theme-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -86,6 +195,7 @@ body {
     background: none;
 }
 
+/* ---------------- LEVELS ---------------- */
 .levels {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -109,6 +219,7 @@ body {
     object-fit: cover;
 }
 
+/* ---------------- GAME AREA ---------------- */
 .game-area {
     display: flex;
     justify-content: center;
@@ -117,6 +228,7 @@ body {
     flex-wrap: nowrap;
 }
 
+/* LEFT SIDE */
 #full-preview-container { display: flex; flex-direction: column; align-items: center; }
 #timer-turns { font-size: large; margin-bottom: 50px; }
 #full-preview { width: 250px; margin-bottom: 50px; }
@@ -124,6 +236,7 @@ body {
 #left-controls { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 #left-controls button { display: flex; align-items: center; justify-content: center; gap: 10px; width: 150px; }
 
+/* PUZZLE BOARD */
 #board {
     display: grid;
     gap: 2px;
@@ -135,12 +248,15 @@ body {
 #board img {
     width: 100%;
     height: 100%;
-    object-fit: contain; 
+    object-fit: contain;  /* SHOW FULL IMAGE */
     cursor: grab;
     user-select: none;
     background: #fff;
 }
 
+/* ---------------- POPUPS ---------------- */
+
+/* ---------------- RESULT SCREEN ---------------- */
 
 #resultScreen {
     background: #f5f5f5;
@@ -185,8 +301,6 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    width: 39px;
-    margin-left: 40%;
 }
 
 .result-buttons button {
@@ -198,7 +312,9 @@ body {
     transition: 0.3s;
 }
 
-.home { background: #aec7ec;}
+.replay { background: #8cb5f1; }
+.next { background: #8efaa7; }
+.home { background: #fd9dc7; }
 
 .result-buttons button:hover {
     transform: scale(1.05);
@@ -230,6 +346,7 @@ body {
 #popup h2, #pausePopup h2 { margin-bottom:15px; font-size:22px; }
 #popup p, #pausePopup p { margin-bottom:20px; font-size:14px; color:#333; }
 
+/* ---------------- BUTTONS ---------------- */
 button {
     padding:8px 16px;
     margin:5px;
@@ -237,12 +354,15 @@ button {
     cursor:pointer;
     border-radius:6px;
     border:none;
-    background:#b9bff1;
+    background:#5562d680;
     color:rgb(54,50,50);
     font-weight:bold;
     transition:0.2s;
 }
-button:hover { background:#b0b6eba9; }
+button:hover { background:#97b4fe; }
+/* ======================
+   GLOBAL BACK BUTTON
+====================== */
 
 #backBtn {
     position: fixed;
@@ -261,7 +381,7 @@ button:hover { background:#b0b6eba9; }
     font-size: 22px;
     font-weight: bold;
 
-    background: none;
+    background: rgba(255,255,255,0.75);
     backdrop-filter: blur(8px);
 
     border: none;
@@ -278,30 +398,4 @@ button:hover { background:#b0b6eba9; }
 
 #backBtn:active {
     transform: scale(0.92);
-}
-
-.progress-list, .settings-list {
-    text-align: left;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-.progress-row, .settings-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-}
-
-.progress-row:last-child,
-.settings-row:last-child {
-    border-bottom: none;
-}
-.page-container{
-width: 60%;;
-}
-
-a {
-    text-decoration: none;
-    color: inherit; /* Keeps the text color you already defined */
 }
