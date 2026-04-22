@@ -21,49 +21,13 @@
     backdrop-filter: blur(6px);
     z-index: -1;
 }
-.menu-card button {
-    margin: 10px 0;
-    padding: 12px 20px;
-    border-radius: 12px;
-    border: none;
-    font-weight: bold;
-    font-family: inherit;
-    transition: 0.3s;
-    cursor: pointer;
-}
+
 
 a {
     text-decoration: none;
     color: inherit;
 }
-/* For Main Menu */
-.menu-card {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    color: #333;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-}
 
-.menu-card button {
-    margin: 10px 0;
-    padding: 12px 20px;
-    border-radius: 12px;
-    border: none;
-    font-weight: bold;
-    font-family: inherit;
-    transition: 0.3s;
-    cursor: pointer;
-    background: #ffb6c1;
-    color: #fff;
-}
-
-.menu-card button:hover {
-    transform: scale(1.05);
-    background: #ff99b3;
-}
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
@@ -257,7 +221,18 @@ button.danger {
 /* ---------------- POPUPS ---------------- */
 
 /* ---------------- RESULT SCREEN ---------------- */
+body:not(.light) #resultScreen {
+    background: rgba(15, 15, 15, 0.95);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+}
+body:not(.light) .result-box {
+    background: rgba(0,0,0,0.4);
+}
 
+body:not(.light) .result-row {
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
 #resultScreen {
     background: #f5f5f5;
     padding: 40px;
@@ -347,6 +322,19 @@ button.danger {
 #popup p, #pausePopup p { margin-bottom:20px; font-size:14px; color:#333; }
 
 /* ---------------- BUTTONS ---------------- */
+body:not(.light) button {
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+body:not(.light) button:hover {
+    background: #a9d5f9;  
+    color: #0e0e0e;
+}
+body:not(.light) #left-controls button {
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+}
 button {
     padding:8px 16px;
     margin:5px;
@@ -359,7 +347,7 @@ button {
     font-weight:bold;
     transition:0.2s;
 }
-button:hover { background:#97b4fe; }
+button:hover { background:#bdcbfa; }
 /* ======================
    GLOBAL BACK BUTTON
 ====================== */
@@ -718,17 +706,6 @@ select {
     border-bottom: none;
 }
 
-/* ======================
-   MENU BUTTONS
-====================== */
-.menu-card button {
-    background: #ffb6c1;
-    color: white;
-}
-
-.menu-card button:hover {
-    background: #ff99b3;
-}
 
 /* ======================
    TEXT SHARPNESS FIX
