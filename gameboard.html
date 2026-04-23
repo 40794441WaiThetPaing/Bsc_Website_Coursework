@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="game.js" defer></script>
     <script src="theme.js" defer></script>
+
 </head>
 <body>
    <div id="game-title"> 🧩 Sliding Puzzle Game</div>
@@ -14,6 +15,10 @@
         <source src="videos/background4.mp4" type="video/mp4">
     </video>
     <div id="videoOverlay"></div>
+
+<audio id="bgMusic" loop>
+    <source src="videos/bg-music.mp3" type="audio/mpeg">
+</audio>
 
     <div id="game" class="card">
         <div class="game-area">
@@ -29,9 +34,10 @@
                     <button onclick="restartGame()">🔄 Restart</button>
                     <button onclick="window.location='index.html'">🏠 Home</button>
                     <button id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
-                    <button onclick="forceWin()" style="background:#ffb703;">
+                    <button onclick="triggerWin()" style="background:#ffb703;">
     🧪 Force Win
 </button>
+    
                 </div>
 
             </div>

@@ -15,7 +15,6 @@ const levelImages = {
 };
 
 window.onload = function() {
-    // FIX: Set the Full Image based on URL data
     const fullImg = document.getElementById("fullImage");
     if (fullImg && levelImages[theme]) {
         fullImg.src = levelImages[theme][size];
@@ -25,18 +24,27 @@ window.onload = function() {
 
 function startGame() {
     clearInterval(interval);
-    timer = 0; turns = 0; isPaused = false;
+    timer = 0;
+    turns = 0;
+    isPaused = false;
+
     document.getElementById("time").innerText = "0";
     document.getElementById("turns").innerText = "0";
+
     interval = setInterval(() => { 
-        if(!isPaused) { timer++; document.getElementById("time").innerText = timer; } 
+        if (!isPaused) {
+            timer++;
+            document.getElementById("time").innerText = timer;
+        }
     }, 1000);
+
     createBoard();
 }
 
 function createBoard() {
     const board = document.getElementById("board");
     board.innerHTML = "";
+
     board.style.setProperty('--columns', size);
     board.style.setProperty('--rows', size);
 
@@ -45,19 +53,95 @@ function createBoard() {
 
     order.forEach((num, i) => {
         let tile = document.createElement("img");
+
         tile.id = `${Math.floor(i/size)}-${i%size}`;
         tile.src = `images/${theme}/L${size}/${num}.jpg`;
-        tile.addEventListener("dragstart", function() { currTile = this; });
+
+        tile.addEventListener("dragstart", () => currTile = tile);
         tile.addEventListener("dragover", e => e.preventDefault());
-        tile.addEventListener("drop", function() { otherTile = this; });
+        tile.addEventListener("drop", () => otherTile = tile);
         tile.addEventListener("dragend", dragEnd);
+
         board.append(tile);
     });
+}
+
+
+function checkWin() {
+    const tiles = document.querySelectorAll("#board img");
+
+    for (let i = 0; i < tiles.length; i++) {
+        if (!tiles[i].src.includes(`/${i + 1}.jpg`)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function triggerWin() {
+    clearInterval(interval);
+
+    document.getElementById("finalTime").innerText = timer + "s";
+    document.getElementById("finalTurns").innerText = turns;
+
+    let key = `${theme}_${size}x${size}`;
+
+    let bestTime = localStorage.getItem(key + "_time");
+    let leastMoves = localStorage.getItem(key + "_moves");
+
+    if (!bestTime || timer < bestTime) {
+        bestTime = timer;
+        localStorage.setItem(key + "_time", timer);
+    }
+
+    if (!leastMoves || turns < leastMoves) {
+        leastMoves = turns;
+        localStorage.setItem(key + "_moves", turns);
+    }
+
+    document.getElementById("bestTime").innerText = bestTime + "s";
+    document.getElementById("leastMoves").innerText = leastMoves;
+
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("hidden");
+    setTimeout(() => overlay.classList.add("show"), 10);
+}
+
+function dragEnd() {
+    if (!otherTile || !currTile) return;
+
+    // blank tile check (1.jpg)
+    if (!otherTile.src.includes("/1.jpg")) return;
+
+    let [r, c] = currTile.id.split("-").map(Number);
+    let [r2, c2] = otherTile.id.split("-").map(Number);
+
+    if (Math.abs(r - r2) + Math.abs(c - c2) === 1) {
+        let temp = currTile.src;
+        currTile.src = otherTile.src;
+        otherTile.src = temp;
+
+        turns++;
+        document.getElementById("turns").innerText = turns;
+
+       
+        if (checkWin()) {
+            triggerWin();
+        }
+    }
+}
+
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
 }
 
 function togglePause() {
     const pauseOverlay = document.getElementById("pauseOverlay");
     const pauseBtn = document.getElementById("pauseBtn");
+
     isPaused = !isPaused;
 
     if (isPaused) {
@@ -71,70 +155,13 @@ function togglePause() {
     }
 }
 
-function forceWin() {
-    clearInterval(interval);
-
-    // Show current stats
-    document.getElementById("finalTime").innerText = timer + "s";
-    document.getElementById("finalTurns").innerText = turns;
-
-    // Create a proper key using existing variables
-    let key = `${theme}_${size}x${size}`;
-
-    // Get saved best values
-    let bestTime = localStorage.getItem(key + "_time");
-    let leastMoves = localStorage.getItem(key + "_moves");
-
-    // If no saved values, use current
-    if (!bestTime || timer < bestTime) {
-        bestTime = timer;
-        localStorage.setItem(key + "_time", timer);
-    }
-
-    if (!leastMoves || turns < leastMoves) {
-        leastMoves = turns;
-        localStorage.setItem(key + "_moves", turns);
-    }
-
-    // Display best values
-    document.getElementById("bestTime").innerText = bestTime + "s";
-    document.getElementById("leastMoves").innerText = leastMoves;
-
-    // SHOW overlay properly
-    const overlay = document.getElementById("overlay");
-    overlay.classList.remove("hidden");
-    setTimeout(() => overlay.classList.add("show"), 10);
-}
-
 function restartGame() {
     document.getElementById("overlay").classList.remove("show");
+
     setTimeout(() => {
         document.getElementById("overlay").classList.add("hidden");
         startGame();
     }, 300);
-}
-
-function dragEnd() {
-    if (!otherTile || !currTile) return;
-    if (!otherTile.src.includes("/1.jpg")) return; // Assuming 1.jpg is blank
-    
-    let [r, c] = currTile.id.split("-").map(Number);
-    let [r2, c2] = otherTile.id.split("-").map(Number);
-
-    if (Math.abs(r - r2) + Math.abs(c - c2) === 1) {
-        let tmp = currTile.src;
-        currTile.src = otherTile.src;
-        otherTile.src = tmp;
-        turns++;
-        document.getElementById("turns").innerText = turns;
-    }
-}
-
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
 }
 
 function goHome() {
@@ -142,18 +169,16 @@ function goHome() {
 }
 
 function nextLevel() {
-    // increase puzzle size
     let nextSize = size + 1;
 
-    // max level = 6 (based on your images)
     if (nextSize > 6) {
         goHome();
         return;
     }
 
-    // keep same theme, go to next level
     window.location.href = `gameboard.html?theme=${theme}&size=${nextSize}`;
 }
+
 
 function applyMode(mode){
     if(mode === "light"){

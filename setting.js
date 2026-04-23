@@ -1,68 +1,71 @@
-function setTheme(theme){
-    localStorage.setItem("lastTheme", theme);
-    showToast("Theme updated: " + theme);
+/* =========================
+   MODE
+========================= */
+function applyMode(mode){
+    document.body.classList.toggle("light", mode === "light");
 }
 
-function getSelectedTheme(){
-    return localStorage.getItem("lastTheme") || "shinchan";
-}
-
-function clearProgressHistory(){
-    const theme = getSelectedTheme();
-
-    Object.keys(localStorage).forEach(key=>{
-        if(key.startsWith(theme + "_")){
-            localStorage.removeItem(key);
-        }
-    });
-
-    showToast("Progress cleared for " + theme);
-}
-
-/* ===== Toast system ===== */
-function showToast(message){
-    const toast = document.getElementById("toast");
-    toast.innerText = message;
-    toast.classList.add("show");
-
-    setTimeout(()=>{
-        toast.classList.remove("show");
-    }, 2000);
-}
-
-/* ===== Load saved theme ===== */
-window.onload = function(){
-    const theme = getSelectedTheme();
-    const select = document.getElementById("themeSelect");
-    if(select) select.value = theme;
-};
-
-
-/* ===== SET MODE ===== */
 function setMode(mode){
     localStorage.setItem("mode", mode);
     applyMode(mode);
-    showToast("Mode changed: " + mode);
 }
 
-/* ===== APPLY MODE ===== */
-function applyMode(mode){
-    if(mode === "light"){
-        document.body.classList.add("light");
-    } else {
-        document.body.classList.remove("light");
+/* =========================
+   MUSIC SYSTEM 🎵
+========================= */
+let musicOn = localStorage.getItem("music") !== "off";
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    /* APPLY MODE */
+    applyMode(localStorage.getItem("mode") || "dark");
+
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicToggle");
+
+    if (!bgMusic) return;
+
+    /* Restore music time */
+    const savedTime = localStorage.getItem("musicTime");
+    if (savedTime) {
+        bgMusic.currentTime = parseFloat(savedTime);
     }
 
-    const select = document.getElementById("modeSelect");
-    if(select) select.value = mode;
-}
+    /* Play if ON */
+    if (musicOn) {
+        bgMusic.play().catch(()=>{});
+    }
 
-/* ===== LOAD ON START ===== */
-window.onload = function(){
-    const mode = localStorage.getItem("mode") || "dark";
-    applyMode(mode);
+    /* Save time every second */
+    setInterval(() => {
+        if (!bgMusic.paused) {
+            localStorage.setItem("musicTime", bgMusic.currentTime);
+        }
+    }, 1000);
 
-    const theme = localStorage.getItem("lastTheme") || "shinchan";
-    const themeSelect = document.getElementById("themeSelect");
-    if(themeSelect) themeSelect.value = theme;
-};
+    /* Button control */
+    if (musicBtn) {
+        musicBtn.innerHTML = musicOn ? "🎵 ON" : "🔇 OFF";
+
+        musicBtn.addEventListener("click", () => {
+            musicOn = !musicOn;
+            localStorage.setItem("music", musicOn ? "on" : "off");
+
+            if (musicOn) {
+                bgMusic.play().catch(()=>{});
+            } else {
+                bgMusic.pause();
+            }
+
+            musicBtn.innerHTML = musicOn ? "🎵 ON" : "🔇 OFF";
+        });
+    }
+
+    /* 🔥 FIX: allow autoplay after first click */
+    document.addEventListener("click", () => {
+        if (musicOn && bgMusic.paused) {
+            bgMusic.play().catch(()=>{});
+        }
+    }, { once: true });
+
+});
