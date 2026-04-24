@@ -10,6 +10,40 @@ function setMode(mode){
     applyMode(mode);
 }
 
+
+function clearProgressHistory() {
+
+    const themes = ["shinchan","spongebob","familyguy","tomjerry","scoobydoo","oggy"];
+    const sizes = [3,4,5,6];
+
+    themes.forEach(theme => {
+        sizes.forEach(size => {
+            let key = `${theme}_${size}x${size}`;
+
+            localStorage.removeItem(key + "_time");
+            localStorage.removeItem(key + "_moves");
+        });
+    });
+
+    showToast("🗑️ records cleared!");
+
+}
+
+/* =========================
+   TOAST
+========================= */
+function showToast(message){
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    toast.innerText = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+
 /* =========================
    MUSIC SYSTEM 🎵
 ========================= */
@@ -17,7 +51,6 @@ let musicOn = localStorage.getItem("music") !== "off";
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    /* APPLY MODE */
     applyMode(localStorage.getItem("mode") || "dark");
 
     const bgMusic = document.getElementById("bgMusic");
@@ -25,27 +58,27 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (!bgMusic) return;
 
-    /* Restore music time */
+    // Restore time
     const savedTime = localStorage.getItem("musicTime");
     if (savedTime) {
         bgMusic.currentTime = parseFloat(savedTime);
     }
 
-    /* Play if ON */
+    // Auto play if ON
     if (musicOn) {
         bgMusic.play().catch(()=>{});
     }
 
-    /* Save time every second */
+    // Save time
     setInterval(() => {
         if (!bgMusic.paused) {
             localStorage.setItem("musicTime", bgMusic.currentTime);
         }
     }, 1000);
 
-    /* Button control */
+    // Button toggle
     if (musicBtn) {
-        musicBtn.innerHTML = musicOn ? "🎵 ON" : "🔇 OFF";
+        updateMusicButton(musicBtn);
 
         musicBtn.addEventListener("click", () => {
             musicOn = !musicOn;
@@ -57,11 +90,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 bgMusic.pause();
             }
 
-            musicBtn.innerHTML = musicOn ? "🎵 ON" : "🔇 OFF";
+            updateMusicButton(musicBtn);
         });
     }
 
-    /* 🔥 FIX: allow autoplay after first click */
+    // Fix autoplay restriction
     document.addEventListener("click", () => {
         if (musicOn && bgMusic.paused) {
             bgMusic.play().catch(()=>{});
@@ -69,3 +102,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }, { once: true });
 
 });
+
+/* =========================
+   BUTTON UI UPDATE
+========================= */
+function updateMusicButton(btn){
+    btn.innerHTML = musicOn ? "🎵 ON" : "🔇 OFF";
+}

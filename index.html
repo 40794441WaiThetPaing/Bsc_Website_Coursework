@@ -1,46 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Slide Puzzle - Themes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="theme.js" defer></script>
+<meta charset="UTF-8">
+<title>Main Menu - Sliding Puzzle Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="main_menu.css">
+<link rel="stylesheet" href="style.css">
+<script src="main_menu.js" defer></script>
+<script src="progress.js" defer></script>
+<script src="theme.js" defer></script>
+<script src="setting.js" defer></script>
 </head>
 <body>
-     <button id="backBtn" onclick="window.location='main_menu.html'">⬅</button>
-    <div id="game-title"> 🧩 Sliding Puzzle Game</div>
-    <video autoplay muted loop id="bgVideo">
-        <source src="videos/background4.mp4" type="video/mp4">
-    </video>
-    <div id="videoOverlay"></div>
+<!-- VIDEO BACKGROUND -->
+<video autoplay muted loop id="bgVideo">
+    <source src="videos/background2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<div id="videoOverlay"></div>
 
 <audio id="bgMusic" loop>
     <source src="videos/bg-music.mp3" type="audio/mpeg">
 </audio>
+<!-- MAIN MENU -->
+<div class="menu-card">
+    <h1>🧩 Cute Puzzle Game</h1>
+    <button onclick="window.location='theme.html'">▶️ Start Game</button>
+    <button onclick="window.location='setting.html'">⚙️ Settings</button>
+    <button onclick="window.location='progress.html'">🏆 Records</button>
+    <!-- HOW TO PLAY MODAL -->
+     <button onclick="openHowToPlay()">❓ How to Play</button>
+<div id="howToPlayModal" class="how-to-play hidden">
+    <div class="how-card">
+        <h2>🎀 How to Play</h2>
 
-    <div id="theme-selection" class="card">
-        <h1> Choose a Theme</h1>
-        <div class="theme-grid">
-            <a href="level.html?theme=shinchan" class="theme-card">
-                <img src="images/previews/shinchan.jpg"><span>Shinchan</span>
-            </a>
-            <a href="level.html?theme=spongebob" class="theme-card">
-                <img src="images/previews/spongebob.jpg"><span>SpongeBob</span>
-            </a>
-            <a href="level.html?theme=familyguy" class="theme-card">
-                <img src="images/previews/familyguy.jpg"><span>Family Guy</span>
-            </a>
-            <a href="level.html?theme=tomjerry" class="theme-card">
-                <img src="images/previews/tomjerry.jpg"><span>Tom & Jerry</span>
-            </a>
-            <a href="level.html?theme=scoobydoo" class="theme-card">
-                <img src="images/previews/scoobydoo.jpg"><span>Scooby-Doo</span>
-            </a>
-            <a href="level.html?theme=oggy" class="theme-card">
-                <img src="images/previews/oggy.jpg"><span>Oggy</span>
-            </a>
-        </div>
+        <p>🧩 <b>Goal:</b> Arrange the tiles to complete the picture!</p>
+        <p>👉 <b>Move:</b> Drag a tile next to the empty space.</p>
+        <p>⏱ <b>Challenge:</b> Fewer moves = better score!</p>
+        <p>🎉 <b>Win:</b> Puzzle completed — yay!</p>
+        <p>💖 <b>Tip:</b> Corners first make it easier.</p>
+
+        <button onclick="closeHowToPlay()">✨ Got it!</button>
     </div>
+</div>
+
+  
+</div>
+</div>
 </body>
 </html>
