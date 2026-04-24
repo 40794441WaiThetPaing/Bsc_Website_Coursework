@@ -165,7 +165,7 @@ function restartGame() {
 }
 
 function goHome() {
-    window.location.href = "index.html";
+    window.location.href = "theme.html";
 }
 
 function nextLevel() {

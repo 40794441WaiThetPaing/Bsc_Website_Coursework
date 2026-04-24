@@ -13,20 +13,19 @@ function setMode(mode){
 
 function clearProgressHistory() {
 
-    const themes = ["shinchan","spongebob","familyguy","tomjerry","scoobydoo","oggy"];
+    // ✅ Get selected theme from settings page
+    const theme = document.getElementById("themeSelect").value;
+
     const sizes = [3,4,5,6];
 
-    themes.forEach(theme => {
-        sizes.forEach(size => {
-            let key = `${theme}_${size}x${size}`;
+    sizes.forEach(size => {
+        let key = `${theme}_${size}x${size}`;
 
-            localStorage.removeItem(key + "_time");
-            localStorage.removeItem(key + "_moves");
-        });
+        localStorage.removeItem(key + "_time");
+        localStorage.removeItem(key + "_moves");
     });
 
-    showToast("🗑️ records cleared!");
-
+    showToast(`🗑️ ${theme} records cleared!`);
 }
 
 /* =========================
