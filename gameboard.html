@@ -34,7 +34,9 @@
                     <button onclick="restartGame()">🔄 Restart</button>
                     <button onclick="window.location='index.html'">🏠 Home</button>
                     <button id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
-    
+                    <button onclick="triggerWin()" style="background:#ffb703;">
+                    🧪 Force Win
+                </button>
                 </div>
 
             </div>
@@ -47,9 +49,7 @@
         <p>Take a break! Click Resume to continue solving the puzzle.</p>
         <button onclick="togglePause()">Resume</button>
     </div>
-     <button onclick="triggerWin()" style="background:#ffb703;">
-    🧪 Force Win
-</button>
+     
 </div>
 
 <div id="overlay" class="hidden">
